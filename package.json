@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "extract-tachyons": "./index.js"
+    "extract-tachyons": "./cli.js"
   },
   "keywords": ["tachyons", "postcss", "html"],
   "author": "",
