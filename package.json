@@ -1,0 +1,25 @@
+{
+  "name": "@oncomouse/extract-tachyons",
+  "version": "1.0.0",
+  "description": "Accelerate your Tachyons websites! Read HTML files, extract a list of CSS classes, and create a custom distribution of Tachyons with only the classes you are actually using.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "extract-tachyons": "./index.js"
+  },
+  "keywords": ["tachyons", "postcss", "html"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cssnano": "^4.0.5",
+    "jsdom": "^11.12.0",
+    "minimist": "^1.2.0",
+    "normalize.css": "^8.0.0",
+    "postcss": "^7.0.2",
+    "tachyons-box-sizing": "^3.2.2",
+    "tachyons-custom": "^4.9.5",
+    "tachyons-images": "^1.0.11"
+  }
+}
