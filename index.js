@@ -49,7 +49,8 @@ function extractTachyons(htmlClasses) {
   // Walk our classes and, if they are defined in Tachyons, add them to our custom
   // file:
   htmlClasses.forEach((cssClass) => {
-    tachyonsAST.walkRules(`.${cssClass}`, (rule) => {
+    // Regular expression matches the class but also any pseudo properties:
+    tachyonsAST.walkRules(new RegExp(`\\.${cssClass}([:,].*)?$`), (rule) => {
       if(rule.parent.type === 'root') {
         rootCSS.push(rule.toString());
       } else {
