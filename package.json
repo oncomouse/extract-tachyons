@@ -4,7 +4,7 @@
   "description": "Accelerate your Tachyons websites! Read HTML files, extract a list of CSS classes, and create a custom distribution of Tachyons with only the classes you are actually using.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha test/**/*.spec.js"
   },
   "bin": {
     "extract-tachyons": "./cli.js"
@@ -25,5 +25,10 @@
     "tachyons-box-sizing": "^3.2.2",
     "tachyons-custom": "^4.9.5",
     "tachyons-images": "^1.0.11"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0",
+    "sinon": "^6.1.5"
   }
 }
