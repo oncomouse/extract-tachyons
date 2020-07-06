@@ -15,6 +15,8 @@ if (require.main === module) {
       'output',
       'o',
       'out',
+      'always',
+      'never',
     ],
     alias: {
       'output': [
@@ -24,15 +26,19 @@ if (require.main === module) {
     },
     default: {
       'output': null,
+      'always': '',
+      'never': '',
     },
   });
-  const { extractClasses, extractTachyons } = require('./index');
+  const always = argv.always.split(/,\s*/);
+  const never = argv.never.split(/,\s*/);
+  const {extractClasses, extractTachyons} = require('./index');
   // Build a complete list of all CSS classes used in the supplied documents:
   const htmlClasses = argv._.reduce((acc, cur) => union(acc, extractClasses(fs.readFileSync(cur).toString())), []);
-  const customCSS = extractTachyons(htmlClasses);
+  const customCSS = extractTachyons(union(htmlClasses, always).filter(x => never.indexOf(x) < 0));
 
   function handleOutput(css) {
-    if(argv.output === null) {
+    if (argv.output === null) {
       console.log(css);
     } else {
       fs.writeFileSync(argv.output, css);
@@ -40,8 +46,8 @@ if (require.main === module) {
   }
 
   // If we are compressing, run CSSNano, otherwise print:
-  if(argv.compress) {
-    postcss([cssnano({preset: 'default'})]).process(customCSS, { from: undefined }).then(result => handleOutput(result.css));
+  if (argv.compress) {
+    postcss([cssnano({preset: 'default'})]).process(customCSS, {from: undefined}).then(result => handleOutput(result.css));
   } else {
     handleOutput(customCSS);
   }

@@ -18,6 +18,10 @@ From the command line: `npx extract-tachyons [--compress] [--output <file>] buil
 
 * `--compress` will shrink the output with [CSSNano](https://cssnano.co/).
 * `--output <file>` will write the output to `<file>` (default is to print to STDOUT)
+* `--always <list>` will always include the classes in `<list>`
+	* `<list>` is comma separated: `black,hover-black` or `orange, ms-3`
+* `--never <list>` will never include the classes in `<list>`
+	* `<list>` is comma separated: `black,hover-black` or `orange, ms-3`
 
 ## Note
 
