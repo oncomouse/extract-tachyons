@@ -1,13 +1,6 @@
 #!/usr/bin/env node
 
-
-// Calculate the union between two lists:
-function union(a, b) {
-  return a.concat(b.filter(function (item) {
-    return a.indexOf(item) < 0;
-  }));
-}
-
+const union = require('./lib/union');
 
 if (require.main === module) {
   const fs = require('fs');
@@ -53,7 +46,3 @@ if (require.main === module) {
     handleOutput(customCSS);
   }
 }
-
-module.exports = {
-  union,
-};

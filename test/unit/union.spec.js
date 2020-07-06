@@ -1,5 +1,5 @@
 var { expect } = require('chai');
-var { union } = require('../../cli');
+var union = require('../../lib/union');
 
 describe('union()', () => {
   var testArray1 = [1,2,3,4];
