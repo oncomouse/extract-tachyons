@@ -23,7 +23,7 @@
     "normalize.css": "^8.0.0",
     "postcss": "^7.0.2",
     "tachyons-box-sizing": "^3.2.2",
-    "tachyons-custom": "^4.9.5",
+    "tachyons-custom": "4.9.6",
     "tachyons-images": "^1.0.11"
   },
   "devDependencies": {
