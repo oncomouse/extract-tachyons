@@ -1,9 +1,9 @@
-const { JSDOM } = require('jsdom');
+const {JSDOM} = require('jsdom');
 const postcss = require('postcss');
 const fs = require('fs');
 // Read CSS files as text:
 require.extensions['.css'] = function (module, filename) {
-    module.exports = fs.readFileSync(filename, 'utf8');
+  module.exports = fs.readFileSync(filename, 'utf8');
 };
 const tachyonsCSS = require('tachyons-custom/css/tachyons.css');
 const tachyonsImageCSS = require('tachyons-images/css/tachyons-images.min.css');
@@ -22,7 +22,7 @@ function extractClasses(html) {
   Array.from(elements).forEach((element) => {
     const classes = element.className.length ? element.className.split(' ') : [];
     htmlClasses.push(
-      ... classes.filter(name => name.length > 0 && htmlClasses.indexOf(name) === -1),
+      ...classes.filter(name => name.length > 0 && htmlClasses.indexOf(name) === -1),
     );
   });
   return htmlClasses;
@@ -51,10 +51,10 @@ function extractTachyons(htmlClasses) {
   htmlClasses.forEach((cssClass) => {
     // Regular expression matches the class but also any pseudo properties:
     tachyonsAST.walkRules(new RegExp(`\\.${cssClass}([:,].*)?$`), (rule) => {
-      if(rule.parent.type === 'root') {
-        rootCSS.push(rule.toString());
+      if (rule.parent.type === 'root') {
+        rootCSS.push({pos: rule.source.start.line, rule: rule.toString()});
       } else {
-        mediaQueries[rule.parent.params].push(rule.toString());
+        mediaQueries[rule.parent.params].push({pos: rule.source.start.line, rule: rule.toString()});
       }
     });
   });
@@ -63,9 +63,9 @@ function extractTachyons(htmlClasses) {
   const customCSS = `${normalizeCSS}
 ${tachyonsBoxSizingCSS}
 ${tachyonsImageCSS}
-${rootCSS.join('\n')}
+${rootCSS.sort((a, b) => a.pos - b.pos).map(x => x.rule).join('\n')}
 ${Object.keys(mediaQueries).filter(x => mediaQueries[x].length !== 0).map(key => `@media ${key} {
-${mediaQueries[key].join('\n')}
+${mediaQueries[key].sort((a, b) => a.pos - b.pos).map(x => x.rule).join('\n')}
 }`).join('\n')}`;
 
   return customCSS;
